@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORJA FIT — Galletas que entrenan contigo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --carbon:#161310;
+    --carbon-2:#1F1B16;
+    --cream:#F3E9D6;
+    --copper:#C97A3D;
+    --copper-dim:#8f5527;
+    --forest:#2F4A3A;
+    --ember:#B3402A;
+    --line: rgba(243,233,214,0.14);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--carbon);
+    color:var(--cream);
+    font-family:'Inter', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Anton', sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    line-height:0.95;
+  }
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 28px;}
+
+  /* ===== HEADER ===== */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(22,19,16,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .headbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px;
+    max-width:1120px; margin:0 auto;
+  }
+  .logo{display:flex; align-items:center; gap:10px;}
+  .logo svg{width:38px; height:38px;}
+  .logo-text{font-family:'Anton'; font-size:22px; letter-spacing:0.02em;}
+  .logo-text span{color:var(--copper);}
+
+  nav.tabs{
+    display:flex; gap:4px;
+    background:var(--carbon-2);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:4px;
+  }
+  nav.tabs button{
+    font-family:'Inter'; font-weight:600; font-size:14px;
+    color:var(--cream); opacity:0.6;
+    background:none; border:none; cursor:pointer;
+    padding:9px 18px; border-radius:999px;
+    transition:opacity 0.2s ease, background 0.2s ease;
+    white-space:nowrap;
+  }
+  nav.tabs button:hover{opacity:0.9;}
+  nav.tabs button.active{
+    opacity:1; background:var(--copper); color:var(--carbon);
+  }
+  .mobile-tabs{display:none;}
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:88px 0 64px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; right:-120px; top:-160px;
+    width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle at center, var(--copper) 0%, transparent 70%);
+    opacity:0.18;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;
+    position:relative;
+  }
+  .eyebrow-line{
+    display:flex; align-items:center; gap:10px;
+    font-size:14px; font-weight:700; color:var(--copper);
+    margin-bottom:18px;
+  }
+  .eyebrow-line::before{content:""; width:28px; height:2px; background:var(--copper);}
+  .hero h1{font-size:clamp(46px, 6.5vw, 84px); color:var(--cream);}
+  .hero h1 em{font-style:normal; color:var(--copper);}
+  .hero p.lead{
+    margin-top:22px; font-size:18px; max-width:46ch; color:rgba(243,233,214,0.78);
+  }
+  .hero-cta{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Inter'; font-weight:700; font-size:15px;
+    padding:14px 26px; border-radius:8px; cursor:pointer;
+    border:1.5px solid transparent; transition:transform 0.15s ease, background 0.2s ease;
+    display:inline-block;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--copper); color:var(--carbon);}
+  .btn-ghost{border-color:var(--line); color:var(--cream); background:transparent;}
+
+  .stat-row{
+    display:flex; gap:32px; margin-top:44px; flex-wrap:wrap;
+  }
+  .stat-row div{border-left:2px solid var(--copper); padding-left:12px;}
+  .stat-num{font-family:'Anton'; font-size:30px; color:var(--cream);}
+  .stat-label{font-size:12.5px; color:rgba(243,233,214,0.6); margin-top:2px;}
+
+  .hero-visual{
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .pack{
+    width:100%; max-width:320px;
+    background:linear-gradient(165deg, var(--forest), #1c2f24);
+    border-radius:18px;
+    padding:34px 26px;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(243,233,214,0.08);
+    transform: rotate(-3deg);
+  }
+  .pack-top{display:flex; justify-content:space-between; align-items:flex-start;}
+  .pack-brand{font-family:'Anton'; font-size:15px; letter-spacing:0.05em; color:var(--cream); opacity:0.85;}
+  .pack-flavor{
+    font-family:'Anton'; font-size:38px; margin-top:60px; color:var(--cream);
+  }
+  .pack-sub{font-size:13px; color:rgba(243,233,214,0.65); margin-top:6px;}
+  .pack-badge{
+    display:inline-block; margin-top:22px;
+    background:var(--copper); color:var(--carbon);
+    font-weight:800; font-size:12.5px;
+    padding:6px 12px; border-radius:999px;
+  }
+  .pack-macro{
+    margin-top:26px; display:flex; gap:16px;
+    border-top:1px solid rgba(243,233,214,0.15); padding-top:16px;
+  }
+  .pack-macro div{font-size:11.5px; color:rgba(243,233,214,0.65);}
+  .pack-macro strong{display:block; font-family:'Anton'; font-size:17px; color:var(--cream);}
+
+  /* ===== SECTIONS GENERIC ===== */
+  section.panel{padding:72px 0; border-bottom:1px solid var(--line);}
+  .panel-head{max-width:640px; margin-bottom:48px;}
+  .panel-head .eyebrow-line{margin-bottom:14px;}
+  .panel-head h2{font-size:clamp(32px,4vw,48px);}
+  .panel-head p{margin-top:14px; color:rgba(243,233,214,0.72); font-size:16px; max-width:56ch;}
+
+  /* ---- Nutrición ---- */
+  .macro-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-bottom:56px;}
+  .macro-card{
+    background:var(--carbon-2); border:1px solid var(--line); border-radius:14px;
+    padding:24px 20px;
+  }
+  .macro-card .val{font-family:'Anton'; font-size:34px; color:var(--copper);}
+  .macro-card .lbl{font-size:13px; color:rgba(243,233,214,0.65); margin-top:6px;}
+
+  table.nutri{
+    width:100%; border-collapse:collapse; font-size:14.5px;
+  }
+  table.nutri caption{
+    text-align:left; font-family:'Anton'; font-size:18px; margin-bottom:14px; color:var(--cream);
+  }
+  table.nutri th, table.nutri td{
+    text-align:left; padding:12px 14px; border-bottom:1px solid var(--line);
+  }
+  table.nutri th{color:rgba(243,233,214,0.55); font-weight:600; font-size:12.5px; text-transform:none;}
+  table.nutri tr:last-child td{border-bottom:none;}
+  .nutri-wrap{display:grid; grid-template-columns:1.3fr 1fr; gap:40px;}
+  .ingr-list{list-style:none; font-size:14.5px; color:rgba(243,233,214,0.78);}
+  .ingr-list li{padding:10px 0; border-bottom:1px solid var(--line); display:flex; justify-content:space-between; gap:12px;}
+  .ingr-list li:last-child{border-bottom:none;}
+  .tag{
+    display:inline-block; background:rgba(47,74,58,0.5); color:#a9d6bc;
+    border:1px solid rgba(169,214,188,0.3);
+    font-size:11.5px; font-weight:700; padding:4px 10px; border-radius:999px;
+  }
+
+  /* ---- Sabores / Promo ---- */
+  .flavor-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .flavor-card{
+    border:1px solid var(--line); border-radius:16px; overflow:hidden;
+    background:var(--carbon-2);
+    transition:border-color 0.2s ease;
+  }
+  .flavor-card:hover{border-color:var(--copper-dim);}
+  .flavor-top{
+    height:130px; display:flex; align-items:center; justify-content:center;
+    font-family:'Anton'; font-size:15px; letter-spacing:0.03em; color:var(--carbon);
+  }
+  .flavor-top.f1{background:linear-gradient(135deg,#C97A3D,#8f5527);}
+  .flavor-top.f2{background:linear-gradient(135deg,#2F4A3A,#16241c); color:var(--cream);}
+  .flavor-top.f3{background:linear-gradient(135deg,#B3402A,#732517); color:var(--cream);}
+  .flavor-top.f4{background:linear-gradient(135deg,#E8C79A,#C97A3D);}
+  .flavor-top.f5{background:linear-gradient(135deg,#3d5c48,#2F4A3A); color:var(--cream);}
+  .flavor-top.f6{background:linear-gradient(135deg,#8a2e1c,#B3402A); color:var(--cream);}
+  .flavor-body{padding:18px 20px 22px;}
+  .flavor-body h3{font-family:'Inter'; font-weight:800; font-size:17px;}
+  .flavor-body p{font-size:13.5px; color:rgba(243,233,214,0.65); margin-top:6px;}
+  .flavor-meta{display:flex; justify-content:space-between; margin-top:14px; font-size:12.5px; color:rgba(243,233,214,0.5);}
+
+  .promo-band{
+    margin-top:52px; border-radius:18px; padding:38px;
+    background:linear-gradient(120deg, var(--ember), #7a2c1c);
+    display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;
+  }
+  .promo-band h3{font-family:'Anton'; font-size:26px;}
+  .promo-band p{font-size:14.5px; margin-top:6px; color:rgba(243,233,214,0.85); max-width:44ch;}
+  .promo-code{
+    background:var(--carbon); padding:12px 22px; border-radius:8px;
+    font-family:'Anton'; font-size:20px; letter-spacing:0.05em; color:var(--copper);
+  }
+
+  /* ---- Empaques ---- */
+  .pack-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
+  .pack-option{
+    border:1px solid var(--line); border-radius:16px; padding:26px;
+    background:var(--carbon-2); display:flex; flex-direction:column; gap:14px;
+  }
+  .pack-option.hi{border-color:var(--copper);}
+  .pack-icon{
+    width:52px; height:52px; border-radius:12px; background:rgba(201,122,61,0.15);
+    display:flex; align-items:center; justify-content:center; color:var(--copper);
+    font-family:'Anton'; font-size:20px;
+  }
+  .pack-option h3{font-size:19px; font-family:'Inter'; font-weight:800;}
+  .pack-option .price{font-family:'Anton'; font-size:28px; color:var(--copper);}
+  .pack-option ul{list-style:none; font-size:13.5px; color:rgba(243,233,214,0.7); display:flex; flex-direction:column; gap:8px;}
+  .pack-option ul li::before{content:"— "; color:var(--copper);}
+  .pack-option .btn{margin-top:auto; text-align:center;}
+
+  .spec-note{
+    margin-top:44px; font-size:13.5px; color:rgba(243,233,214,0.55);
+    border-top:1px solid var(--line); padding-top:24px;
+  }
+
+  /* ---- Pedidos ---- */
+  .order-layout{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:flex-start;}
+  form.order-form{display:flex; flex-direction:column; gap:18px;}
+  .field{display:flex; flex-direction:column; gap:7px;}
+  .field label{font-size:13px; font-weight:600; color:rgba(243,233,214,0.8);}
+  .field input, .field select, .field textarea{
+    background:var(--carbon-2); border:1px solid var(--line); border-radius:8px;
+    padding:12px 14px; color:var(--cream); font-family:'Inter'; font-size:14.5px;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{
+    outline:2px solid var(--copper); outline-offset:1px; border-color:transparent;
+  }
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .qty-box{display:flex; align-items:center; gap:0; width:fit-content;}
+  .qty-box button{
+    width:38px; height:38px; background:var(--carbon-2); border:1px solid var(--line);
+    color:var(--cream); font-size:17px; cursor:pointer;
+  }
+  .qty-box button:first-child{border-radius:8px 0 0 8px;}
+  .qty-box button:last-child{border-radius:0 8px 8px 0;}
+  .qty-box span{
+    width:52px; text-align:center; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    height:38px; line-height:38px; font-weight:700;
+  }
+  .order-summary{
+    background:var(--carbon-2); border:1px solid var(--line); border-radius:16px; padding:28px;
+    position:sticky; top:110px;
+  }
+  .order-summary h3{font-family:'Anton'; font-size:20px; margin-bottom:18px;}
+  .sum-row{display:flex; justify-content:space-between; font-size:14.5px; padding:9px 0; border-bottom:1px solid var(--line); color:rgba(243,233,214,0.8);}
+  .sum-row.total{border-bottom:none; font-weight:800; color:var(--cream); font-size:17px; padding-top:14px;}
+  .confirm-msg{
+    display:none; margin-top:16px; background:rgba(47,74,58,0.4); border:1px solid rgba(169,214,188,0.35);
+    color:#c9e8d6; padding:14px 16px; border-radius:8px; font-size:13.5px;
+  }
+  .confirm-msg.show{display:block;}
+
+  footer{padding:40px 0; text-align:center; font-size:13px; color:rgba(243,233,214,0.45);}
+
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+
+  @media (max-width: 860px){
+    nav.tabs{display:none;}
+    .mobile-tabs{
+      display:flex; gap:8px; overflow-x:auto; padding:14px 28px 0;
+      border-top:1px solid var(--line);
+    }
+    .mobile-tabs button{
+      font-family:'Inter'; font-weight:700; font-size:13px; color:var(--cream);
+      background:var(--carbon-2); border:1px solid var(--line); border-radius:999px;
+      padding:8px 16px; white-space:nowrap; opacity:0.7;
+    }
+    .mobile-tabs button.active{opacity:1; background:var(--copper); color:var(--carbon); border-color:var(--copper);}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{order:-1;}
+    .macro-grid{grid-template-columns:repeat(2,1fr);}
+    .nutri-wrap{grid-template-columns:1fr;}
+    .flavor-grid{grid-template-columns:1fr 1fr;}
+    .pack-grid{grid-template-columns:1fr;}
+    .order-layout{grid-template-columns:1fr;}
+    .order-summary{position:static;}
+    .field-row{grid-template-columns:1fr;}
+  }
+  @media (max-width: 520px){
+    .flavor-grid{grid-template-columns:1fr;}
+    .macro-grid{grid-template-columns:1fr 1fr;}
+    .stat-row{gap:20px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="headbar">
+    <div class="logo">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="4" width="40" height="40" rx="10" fill="#C97A3D"/>
+        <path d="M14 32L20 14H24L20 26H28L20 38L22 28H16L14 32Z" fill="#161310"/>
+      </svg>
+      <div class="logo-text">FORJA<span>FIT</span></div>
+    </div>
+    <nav class="tabs" id="desktopTabs">
+      <button data-tab="inicio" class="active">Inicio</button>
+      <button data-tab="nutricion">Nutrición</button>
+      <button data-tab="sabores">Sabores &amp; Promos</button>
+      <button data-tab="empaques">Empaques</button>
+      <button data-tab="pedidos">Pedidos</button>
+    </nav>
+  </div>
+  <div class="mobile-tabs" id="mobileTabs">
+    <button data-tab="inicio" class="active">Inicio</button>
+    <button data-tab="nutricion">Nutrición</button>
+    <button data-tab="sabores">Sabores</button>
+    <button data-tab="empaques">Empaques</button>
+    <button data-tab="pedidos">Pedidos</button>
+  </div>
+</header>
+
+<!-- ===================== INICIO ===================== -->
+<div class="tab-panel active" id="panel-inicio">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow-line">Galleta funcional, no premio de consuelo</div>
+        <h1>Come fuerte.<br>Entrena <em>más fuerte</em>.</h1>
+        <p class="lead">FORJA FIT es la galleta que se rompe el día del entrenamiento: 12 g de proteína, avena entera y cero azúcares añadidos, horneada para aguantar el mordisco antes y después de la sesión.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" onclick="goTo('pedidos')">Hacer un pedido</button>
+          <button class="btn btn-ghost" onclick="goTo('nutricion')">Ver tabla nutricional</button>
+        </div>
+        <div class="stat-row">
+          <div><div class="stat-num">12g</div><div class="stat-label">Proteína por unidad</div></div>
+          <div><div class="stat-num">0g</div><div class="stat-label">Azúcar añadida</div></div>
+          <div><div class="stat-num">148</div><div class="stat-label">Kcal por galleta</div></div>
+          <div><div class="stat-num">6</div><div class="stat-label">Sabores activos</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="pack">
+          <div class="pack-top">
+            <div class="pack-brand">FORJA FIT</div>
+            <div class="pack-brand">6 UN</div>
+          </div>
+          <div class="pack-flavor">Cacao &amp; Maní</div>
+          <div class="pack-sub">Avena entera · sin azúcar añadida</div>
+          <span class="pack-badge">12g proteína</span>
+          <div class="pack-macro">
+            <div><strong>148</strong>kcal</div>
+            <div><strong>12g</strong>prot</div>
+            <div><strong>6g</strong>grasa</div>
+            <div><strong>14g</strong>carb</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== NUTRICIÓN ===================== -->
+<div class="tab-panel" id="panel-nutricion">
+  <section class="panel">
+    <div class="wrap">
+      <div class="panel-head">
+        <div class="eyebrow-line">Lo que de verdad llevas</div>
+        <h2>Nutrición sin letra chica</h2>
+        <p>Cada galleta FORJA FIT está pensada como un aporte real de proteína, no un antojo disfrazado. Estos son los valores por unidad (30 g) del sabor Cacao &amp; Maní.</p>
+      </div>
+
+      <div class="macro-grid">
+        <div class="macro-card"><div class="val">148</div><div class="lbl">Calorías</div></div>
+        <div class="macro-card"><div class="val">12g</div><div class="lbl">Proteína</div></div>
+        <div class="macro-card"><div class="val">6g</div><div class="lbl">Grasas totales</div></div>
+        <div class="macro-card"><div class="val">4g</div><div class="lbl">Fibra</div></div>
+      </div>
+
+      <div class="nutri-wrap">
+        <table class="nutri">
+          <caption>Información nutricional (por porción de 30 g)</caption>
+          <thead>
+            <tr><th>Nutriente</th><th>Cantidad</th><th>% VD*</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Calorías</td><td>148 kcal</td><td>—</td></tr>
+            <tr><td>Grasas totales</td><td>6 g</td><td>9%</td></tr>
+            <tr><td>&nbsp;&nbsp;Grasas saturadas</td><td>1.5 g</td><td>8%</td></tr>
+            <tr><td>Carbohidratos</td><td>14 g</td><td>5%</td></tr>
+            <tr><td>&nbsp;&nbsp;Azúcares añadidos</td><td>0 g</td><td>0%</td></tr>
+            <tr><td>Fibra dietética</td><td>4 g</td><td>14%</td></tr>
+            <tr><td>Proteína</td><td>12 g</td><td>24%</td></tr>
+            <tr><td>Sodio</td><td>85 mg</td><td>4%</td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:12px; color:rgba(243,233,214,0.45); margin-top:10px;">*Valores diarios en base a una dieta de 2000 kcal.</p>
+
+        <div>
+          <table class="nutri" style="margin-bottom:24px;">
+            <caption>Ingredientes</caption>
+          </table>
+          <ul class="ingr-list">
+            <li>Avena entera integral <span class="tag">base</span></li>
+            <li>Aislado de proteína de suero <span class="tag">proteína</span></li>
+            <li>Mantequilla de maní natural <span class="tag">grasa buena</span></li>
+            <li>Cacao amargo 70% <span class="tag">sabor</span></li>
+            <li>Eritritol <span class="tag">endulzante</span></li>
+            <li>Huevo, aceite de coco, sal marina <span class="tag">base</span></li>
+          </ul>
+          <p style="font-size:13px; color:rgba(243,233,214,0.5); margin-top:14px;">Contiene: leche, huevo, maní y trazas de frutos secos. Sin gluten agregado.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== SABORES & PROMO ===================== -->
+<div class="tab-panel" id="panel-sabores">
+  <section class="panel">
+    <div class="wrap">
+      <div class="panel-head">
+        <div class="eyebrow-line">La línea completa</div>
+        <h2>Seis sabores, un mismo propósito</h2>
+        <p>Cada sabor está calibrado para un momento distinto del entrenamiento: antes, durante la ventana post-ejercicio, o como snack de mantenimiento.</p>
+      </div>
+
+      <div class="flavor-grid">
+        <div class="flavor-card">
+          <div class="flavor-top f1">CACAO &amp; MANÍ</div>
+          <div class="flavor-body">
+            <h3>Cacao &amp; Maní</h3>
+            <p>El clásico post-entreno. Cacao amargo con crema de maní natural.</p>
+            <div class="flavor-meta"><span>148 kcal</span><span>12g prot</span></div>
+          </div>
+        </div>
+        <div class="flavor-card">
+          <div class="flavor-top f2">MATCHA &amp; COCO</div>
+          <div class="flavor-body">
+            <h3>Matcha &amp; Coco</h3>
+            <p>Un golpe suave de cafeína natural con notas tropicales.</p>
+            <div class="flavor-meta"><span>139 kcal</span><span>11g prot</span></div>
+          </div>
+        </div>
+        <div class="flavor-card">
+          <div class="flavor-top f3">CANELA &amp; MANZANA</div>
+          <div class="flavor-body">
+            <h3>Canela &amp; Manzana</h3>
+            <p>Snack de mantenimiento, ideal a media tarde.</p>
+            <div class="flavor-meta"><span>142 kcal</span><span>10g prot</span></div>
+          </div>
+        </div>
+        <div class="flavor-card">
+          <div class="flavor-top f4">VAINILLA &amp; ALMENDRA</div>
+          <div class="flavor-body">
+            <h3>Vainilla &amp; Almendra</h3>
+            <p>El sabor más neutro de la línea, para combinar con café.</p>
+            <div class="flavor-meta"><span>151 kcal</span><span>12g prot</span></div>
+          </div>
+        </div>
+        <div class="flavor-card">
+          <div class="flavor-top f5">PISTACHO &amp; LIMÓN</div>
+          <div class="flavor-body">
+            <h3>Pistacho &amp; Limón</h3>
+            <p>Edición limitada, notas cítricas para romper la rutina.</p>
+            <div class="flavor-meta"><span>145 kcal</span><span>11g prot</span></div>
+          </div>
+        </div>
+        <div class="flavor-card">
+          <div class="flavor-top f6">CAFÉ &amp; CACAO</div>
+          <div class="flavor-body">
+            <h3>Café &amp; Cacao</h3>
+            <p>Doble estímulo: cafeína natural del café más cacao amargo.</p>
+            <div class="flavor-meta"><span>150 kcal</span><span>12g prot</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="promo-band">
+        <div>
+          <h3>Pack de prueba: 6 sabores por el precio de 5</h3>
+          <p>Válido en el primer pedido a través de la pestaña de Pedidos, mientras dure el stock del mes.</p>
+        </div>
+        <div class="promo-code">FORJA6X5</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== EMPAQUES ===================== -->
+<div class="tab-panel" id="panel-empaques">
+  <section class="panel">
+    <div class="wrap">
+      <div class="panel-head">
+        <div class="eyebrow-line">Formatos disponibles</div>
+        <h2>Empaques pensados por uso</h2>
+        <p>Desde el paquete individual para el bolso del gimnasio hasta la caja de reposición para boxes y tiendas.</p>
+      </div>
+
+      <div class="pack-grid">
+        <div class="pack-option">
+          <div class="pack-icon">1U</div>
+          <h3>Individual</h3>
+          <div class="price">$1.200</div>
+          <ul>
+            <li>1 galleta de 30 g</li>
+            <li>Empaque flow-pack sellado</li>
+            <li>Ideal para probar sabores</li>
+          </ul>
+          <button class="btn btn-ghost" onclick="goTo('pedidos')">Pedir</button>
+        </div>
+        <div class="pack-option hi">
+          <div class="pack-icon">6U</div>
+          <h3>Pack semanal</h3>
+          <div class="price">$6.300</div>
+          <ul>
+            <li>6 galletas, mismo sabor o mixto</li>
+            <li>Caja de cartón reciclable</li>
+            <li>El formato más pedido</li>
+          </ul>
+          <button class="btn btn-primary" onclick="goTo('pedidos')">Pedir</button>
+        </div>
+        <div class="pack-option">
+          <div class="pack-icon">24U</div>
+          <h3>Caja box / tienda</h3>
+          <div class="price">$22.000</div>
+          <ul>
+            <li>24 galletas a granel</li>
+            <li>Para reventa en boxes y gimnasios</li>
+            <li>Precio preferencial por volumen</li>
+          </ul>
+          <button class="btn btn-ghost" onclick="goTo('pedidos')">Pedir</button>
+        </div>
+      </div>
+
+      <p class="spec-note">Todos los empaques usan bolsa flow-pack con barrera de humedad para conservar la textura sin necesidad de refrigeración. Vida útil: 45 días desde el horneado. La caja de 24 unidades incluye separadores de sabor y ficha nutricional impresa.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== PEDIDOS ===================== -->
+<div class="tab-panel" id="panel-pedidos">
+  <section class="panel" style="border-bottom:none;">
+    <div class="wrap">
+      <div class="panel-head">
+        <div class="eyebrow-line">Orden de compra</div>
+        <h2>Arma tu pedido</h2>
+        <p>Completá el formulario y te confirmamos por correo el detalle y el método de pago. Los pedidos mayoristas (caja de 24) tienen un asesor asignado.</p>
+      </div>
+
+      <div class="order-layout">
+        <form class="order-form" id="orderForm" onsubmit="return false;">
+          <div class="field-row">
+            <div class="field">
+              <label for="nombre">Nombre y apellido</label>
+              <input id="nombre" type="text" placeholder="Tu nombre" required>
+            </div>
+            <div class="field">
+              <label for="email">Correo</label>
+              <input id="email" type="email" placeholder="tu@correo.com" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="formato">Formato</label>
+            <select id="formato" onchange="updateSummary()">
+              <option value="1200">Individual — $1.200</option>
+              <option value="6300" selected>Pack semanal (6u) — $6.300</option>
+              <option value="22000">Caja box/tienda (24u) — $22.000</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="sabor">Sabor preferido</label>
+            <select id="sabor">
+              <option>Cacao &amp; Maní</option>
+              <option>Matcha &amp; Coco</option>
+              <option>Canela &amp; Manzana</option>
+              <option>Vainilla &amp; Almendra</option>
+              <option>Pistacho &amp; Limón</option>
+              <option>Café &amp; Cacao</option>
+              <option>Mix de sabores</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Cantidad</label>
+            <div class="qty-box">
+              <button type="button" onclick="changeQty(-1)">–</button>
+              <span id="qtyVal">1</span>
+              <button type="button" onclick="changeQty(1)">+</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="direccion">Dirección de entrega</label>
+            <textarea id="direccion" rows="3" placeholder="Calle, número, ciudad"></textarea>
+          </div>
+
+          <div class="field">
+            <label for="codigo">Código promocional (opcional)</label>
+            <input id="codigo" type="text" placeholder="Ej: FORJA6X5">
+          </div>
+
+          <button class="btn btn-primary" style="margin-top:6px;" onclick="confirmOrder()">Confirmar pedido</button>
+          <div class="confirm-msg" id="confirmMsg">Pedido registrado. Te enviamos la confirmación y el link de pago al correo indicado.</div>
+        </form>
+
+        <div class="order-summary">
+          <h3>Resumen</h3>
+          <div class="sum-row"><span>Formato</span><span id="sumFormato">Pack semanal (6u)</span></div>
+          <div class="sum-row"><span>Cantidad</span><span id="sumQty">1</span></div>
+          <div class="sum-row"><span>Precio unitario</span><span id="sumUnit">$6.300</span></div>
+          <div class="sum-row total"><span>Total</span><span id="sumTotal">$6.300</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  FORJA FIT — galletas horneadas por lote, no en serie. Este sitio es una maqueta de demostración.
+</footer>
+
+<script>
+  // ---- Tabs ----
+  const panels = document.querySelectorAll('.tab-panel');
+  const desktopBtns = document.querySelectorAll('#desktopTabs button');
+  const mobileBtns = document.querySelectorAll('#mobileTabs button');
+
+  function goTo(tab){
+    panels.forEach(p => p.classList.toggle('active', p.id === 'panel-' + tab));
+    [...desktopBtns, ...mobileBtns].forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  [...desktopBtns, ...mobileBtns].forEach(btn=>{
+    btn.addEventListener('click', ()=> goTo(btn.dataset.tab));
+  });
+
+  // ---- Order form logic ----
+  let qty = 1;
+  const priceLabels = {
+    "1200": "Individual",
+    "6300": "Pack semanal (6u)",
+    "22000": "Caja box/tienda (24u)"
+  };
+
+  function changeQty(delta){
+    qty = Math.max(1, qty + delta);
+    document.getElementById('qtyVal').textContent = qty;
+    updateSummary();
+  }
+
+  function formatCLP(n){
+    return "$" + n.toLocaleString('es-CL');
+  }
+
+  function updateSummary(){
+    const select = document.getElementById('formato');
+    const unit = parseInt(select.value, 10);
+    document.getElementById('sumFormato').textContent = priceLabels[select.value];
+    document.getElementById('sumQty').textContent = qty;
+    document.getElementById('sumUnit').textContent = formatCLP(unit);
+    document.getElementById('sumTotal').textContent = formatCLP(unit * qty);
+  }
+
+  function confirmOrder(){
+    const nombre = document.getElementById('nombre').value.trim();
+    const email = document.getElementById('email').value.trim();
+    if(!nombre || !email){
+      document.getElementById('nombre').focus();
+      return;
+    }
+    const msg = document.getElementById('confirmMsg');
+    msg.classList.add('show');
+  }
+
+  updateSummary();
+</script>
+
+</body>
+</html>
